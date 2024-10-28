@@ -8,6 +8,10 @@ import { getExpenses } from '../services/apiService';
 const HomePage: React.FC = () => {
     const [expenses, setExpenses] = useState<Expense[]>([]);
     const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
+    const [filteredExpenses, setFilteredExpenses] = useState<Expense[]>([]);
+    const [categoryFilter, setCategoryFilter] = useState<string>('');
+    const [startDate, setStartDate] = useState<string>('');
+    const [endDate, setEndDate] = useState<string>('');
 
     useEffect(() => {
         // Carga inicial de datos desde la API
@@ -23,6 +27,28 @@ const HomePage: React.FC = () => {
         fetchExpenses();
     }, []);
 
+    useEffect(() => {
+        // Filtrar los gastos según la categoría y el rango de fechas
+        const filterExpenses = () => {
+            let filtered = expenses;
+
+            if (categoryFilter) {
+                filtered = filtered.filter(expense => expense.category === categoryFilter);
+            }
+
+            if (startDate) {
+                filtered = filtered.filter(expense => new Date(expense.date) >= new Date(startDate));
+            }
+
+            if (endDate) {
+                filtered = filtered.filter(expense => new Date(expense.date) <= new Date(endDate));
+            }
+
+            setFilteredExpenses(filtered);
+        };
+
+        filterExpenses();
+    }, [categoryFilter, startDate, endDate, expenses]);
 
     return (
         <div className="home-page">
@@ -30,9 +56,31 @@ const HomePage: React.FC = () => {
                 <h1>Seguimiento de Gastos Personales</h1>
             </header>
             <main className="content">
-                <ExpenseSummary expenses={expenses} />
+                <ExpenseSummary expenses={filteredExpenses} />
                 <ExpenseForm setExpenses={setExpenses} editingExpense={editingExpense} setEditingExpense={setEditingExpense} />
-                <ExpenseTable expenses={expenses} setExpenses={setExpenses} setEditingExpense={setEditingExpense} />
+                <div className="filters">
+                    <select onChange={e => setCategoryFilter(e.target.value)} value={categoryFilter}>
+                        <option value="">Todas las categorías</option>
+                        <option value="Hogar">Hogar</option>
+                        <option value="Alimento">Alimento</option>
+                        <option value="Salud">Salud</option>
+                        <option value="Transporte">Transporte</option>
+                        <option value="Entretenimiento">Entretenimiento</option>
+                        <option value="Ropa">Ropa</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                    <input
+                        type="date"
+                        value={startDate}
+                        onChange={e => setStartDate(e.target.value)}
+                    />
+                    <input
+                        type="date"
+                        value={endDate}
+                        onChange={e => setEndDate(e.target.value)}
+                    />
+                </div>
+                <ExpenseTable expenses={filteredExpenses} setExpenses={setExpenses} setEditingExpense={setEditingExpense} />
             </main>
         </div>
     );
