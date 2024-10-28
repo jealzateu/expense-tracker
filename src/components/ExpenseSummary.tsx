@@ -1,5 +1,6 @@
 import React from 'react';
 import { Expense } from '../types/Expense';
+import { calculateExpensesByCategory } from '../utils/utils';
 
 interface ExpenseSummaryProps {
   expenses: Expense[];
@@ -11,10 +12,7 @@ const formatNumber = (num: number): string => {
 
 const ExpenseSummary: React.FC<ExpenseSummaryProps> = ({ expenses }) => {
   const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
-  const byCategory = expenses.reduce((acc, { category, amount }) => {
-    acc[category] = (acc[category] || 0) + amount;
-    return acc;
-  }, {} as Record<string, number>);
+  const byCategory = calculateExpensesByCategory(expenses);
 
   return (
     <div>

@@ -5,7 +5,7 @@ import { addExpense, updateExpense } from './../services/apiService';
 const formatNumber = (num: string): string => {
     const parts = num.split('.');
     const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return parts.length > 1 ? `${integerPart}.${parts[1].slice(0, 2)}` : integerPart; // Limitar a 2 decimales
+    return parts.length > 1 ? `${integerPart}.${parts[1].slice(0, 2)}` : integerPart;
 };
 
 const ExpenseForm: React.FC<ExpenseFormProps> = ({ setExpenses, editingExpense, setEditingExpense }) => {

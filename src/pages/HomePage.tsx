@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ExpenseForm from './../components/ExpenseForm';
 import ExpenseTable from './../components/ExpenseTable';
 import ExpenseSummary from './../components/ExpenseSummary';
+import ExpenseChart from './../components/ExpenseChart';
 import { Expense } from './../types/Expense';
 import { getExpenses } from '../services/apiService';
 
@@ -56,7 +57,10 @@ const HomePage: React.FC = () => {
                 <h1>Seguimiento de Gastos Personales</h1>
             </header>
             <main className="content">
-                <ExpenseSummary expenses={filteredExpenses} />
+                <div className="summary-chart-container">
+                    <ExpenseSummary expenses={filteredExpenses} />
+                    <ExpenseChart expenses={expenses} />
+                </div>
                 <ExpenseForm setExpenses={setExpenses} editingExpense={editingExpense} setEditingExpense={setEditingExpense} />
                 <div className="filters">
                     <select onChange={e => setCategoryFilter(e.target.value)} value={categoryFilter}>
