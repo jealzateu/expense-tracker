@@ -73,6 +73,68 @@ h1 {
   background-color: #c82333;
 }
 
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow-x: auto;
+  display: block;
+  white-space: nowrap;
+}
+
+.expense-table th,
+.expense-table td {
+  border: 1px solid #dee2e6;
+  padding: 10px;
+  text-align: left;
+}
+
+.expense-table th {
+  background-color: #f1f1f1;
+}
+
+.btn-edit {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 2px;
+}
+
+.btn-delete {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 2px;
+}
+
+.btn-edit:hover {
+  background-color: darkblue;
+}
+
+.btn-delete:hover {
+  background-color: darkred;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.filters select,
+.filters input {
+  margin: 5px 0;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
 @media (max-width: 400px) {
   .App {
       padding: 10px;
@@ -82,5 +144,11 @@ h1 {
   .expense-form select,
   .expense-form button {
     width: 100%;
+  }
+
+  .expense-table th, 
+  .expense-table td {
+    font-size: 12px;
+    padding: 8px;
   }
 }

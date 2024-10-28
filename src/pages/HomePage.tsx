@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ExpenseForm from './../components/ExpenseForm';
+import ExpenseTable from './../components/ExpenseTable';
 import { Expense } from './../types/Expense';
 import { getExpenses } from '../services/apiService';
 
@@ -29,6 +30,7 @@ const HomePage: React.FC = () => {
             </header>
             <main className="content">
                 <ExpenseForm setExpenses={setExpenses} editingExpense={editingExpense} setEditingExpense={setEditingExpense} />
+                <ExpenseTable expenses={expenses} setExpenses={setExpenses} setEditingExpense={setEditingExpense} />
             </main>
         </div>
     );
