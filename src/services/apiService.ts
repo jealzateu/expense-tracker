@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Expense } from '../types/Expense';
 
-const API_URL = 'http://localhost:5000/expenses';
+const API_URL = 'https://server-expense-tracker-7jba.onrender.com/expenses';
 
 export const getExpenses = () => axios.get<Expense[]>(API_URL);
 
